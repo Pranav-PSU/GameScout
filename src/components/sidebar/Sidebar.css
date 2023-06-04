@@ -1,0 +1,14 @@
+.sidebar {
+    background-color: #9d0505;
+    padding: 15px;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  button {
+    margin-bottom: 10px;
+  }
+  .custom-offcanvas-bg {
+    background-color: #007bff; /* adjust this value as needed */
+    color: white; /* adjust this value as needed */
+  }
