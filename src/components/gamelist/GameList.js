@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import Sidebar from "../sidebar/Sidebar";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Sidebar from '../sidebar/Sidebar';
 import {
   Card,
   Col,
@@ -9,16 +9,16 @@ import {
   Form,
   FormControl,
   Button,
-} from "react-bootstrap";
-import { Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import "./GameList.css";
-import placeholder from "./placeholder.png";
-import InfiniteScroll from "react-infinite-scroll-component";
+} from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import './GameList.css';
+import placeholder from './placeholder.png';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const GameList = (props) => {
   const [games, setGames] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,10 +27,10 @@ const GameList = (props) => {
   };
 
   const getGameListFunction = async () => {
-    let REACT_APP_RAWG = "3896265182c3481ab09163b92a9cd5bd";
+    let REACT_APP_RAWG = '3896265182c3481ab09163b92a9cd5bd';
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${REACT_APP_RAWG}&page=${currentPage}`
+        `https://api.rawg.io/api/games?key=${REACT_APP_RAWG}&page=${currentPage}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,7 +43,7 @@ const GameList = (props) => {
         setCurrentPage((prevPage) => prevPage + 1);
       }
     } catch (error) {
-      console.error("Error fetching data from RAWG API:", error);
+      console.error('Error fetching data from RAWG API:', error);
     }
   };
 
@@ -55,20 +55,20 @@ const GameList = (props) => {
 
   const showDetails = (element, id) => {
     console.log(element);
-    navigate("/gamedetails", { state: { gameData: element } });
+    navigate('/gamedetails', { state: { myData: element } });
   };
 
   // Filter games based on search term
   const filteredData = games.filter((game) =>
-    game.name.toLowerCase().includes(searchText.toLowerCase())
+    game.name.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   return (
     <>
       <Sidebar />
 
-      <Container>
-        <Form className="d-flex">
+      <Container id="container-custom">
+        <Form className="d-flex" id="search-bar">
           <FormControl
             type="search"
             placeholder="Search"
@@ -76,8 +76,11 @@ const GameList = (props) => {
             aria-label="Search"
             value={searchText}
             onChange={handleSearch}
+            id="search-input"
           />
-          <Button variant="outline-success">Search</Button>
+          <Button id="search-button" variant="outline-success">
+            Search
+          </Button>
         </Form>
         <InfiniteScroll
           dataLength={filteredData.length}
