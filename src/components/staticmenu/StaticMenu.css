@@ -1,0 +1,38 @@
+.top-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: fixed;
+    top: 50%;
+    z-index: 9;
+    left: 0;
+  }
+
+  .cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-links {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .top-card {
+      display: none;
+    }
+    .top-card-mobile {
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .top-card {
+      display: block;
+    }
+    .top-card-mobile {
+      display: none;
+    }
+  }
