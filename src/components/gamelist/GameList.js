@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Sidebar from '../sidebar/Sidebar';
 import {
   Card,
   Col,
@@ -10,12 +8,10 @@ import {
   FormControl,
   Button,
 } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './GameList.css';
-import placeholder from './placeholder.png';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import LoadingSpinner from "../loadingspinner/LoadingSpinner";
+import { DartsSpinnerOverlay} from 'react-spinner-overlay'
 
 
 const GameList = (props) => {
@@ -23,6 +19,7 @@ const GameList = (props) => {
   const [searchText, setSearchText] = useState('');
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true)
 
   const handleSearch = (event) => {
     setSearchText(event.target.value);
@@ -43,6 +40,7 @@ const GameList = (props) => {
   }
 
   const getGameListFunction = async () => {
+    setLoading(true)
     let REACT_APP_RAWG = '3896265182c3481ab09163b92a9cd5bd';
     try {
       const response = await fetch(
@@ -55,11 +53,14 @@ const GameList = (props) => {
       setGames((prevGames) => [...prevGames, ...data.results]);
       if (data.next === null) {
         setHasMore(false);
+       
       } else {
         setCurrentPage((prevPage) => prevPage + 1);
       }
     } catch (error) {
       console.error('Error fetching data from RAWG API:', error);
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -92,11 +93,18 @@ const GameList = (props) => {
         </Form>
         
         <div className='gameCardListDiv'>
+        <DartsSpinnerOverlay
+            overlayColor="rgb(255 255 255 / 38%)"
+            size={90}
+            loading={loading}
+            color="white"
+            borderWidth="8"
+            borderHeight="25"
+           />
         <InfiniteScroll
           dataLength={games.length}
           next={getGameListFunction}
           hasMore={hasMore}
-          loader={<h1>Loading games</h1>}
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Thats all!</b>
