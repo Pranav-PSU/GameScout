@@ -4,6 +4,8 @@ import Sidebar from "../sidebar/Sidebar";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import './GameList.css'
+import placeholder from './placeholder.png';
 
 
 const GameList = props => {
@@ -110,11 +112,10 @@ const GameList = props => {
         <Row xs={1} md={2} lg={3} className="g-4">
           {data.map((element, id) => (
             <Col key={id}>
-              <Card onClick={() => showDetails(element, id)}>
-                <Card.Img variant="top" src={element.image} />
-                <Card.Body>
-                  <Card.Title >{element.title}</Card.Title>
-                  <Card.Text>{element.description}</Card.Text>
+              <Card onClick={() => showDetails(element, id)} id="card-custom">
+                <Card.Img variant="top" src={placeholder} id="img-custom"/>
+                <Card.Body id="card-body-custom">
+                  <Card.Title id="caption">{element.title}</Card.Title>
                 </Card.Body>
               </Card>
             </Col>
