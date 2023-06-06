@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import './GameList.css';
 import placeholder from './placeholder.png';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import LoadingSpinner from "../loadingspinner/LoadingSpinner";
+
 
 const GameList = (props) => {
   const [games, setGames] = useState([]);
@@ -26,11 +28,25 @@ const GameList = (props) => {
     setSearchText(event.target.value);
   };
 
+  const handleKeyPress = (event) =>{
+    if (event.key === 'Enter') {
+      handleSearchFunctionality(event);
+    }
+  }
+  
+  const handleSearchFunctionality = async (event) => {
+  event.preventDefault();
+  setGames([]);
+  setCurrentPage(1);
+  setHasMore(true);
+  getGameListFunction();
+  }
+
   const getGameListFunction = async () => {
     let REACT_APP_RAWG = '3896265182c3481ab09163b92a9cd5bd';
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${REACT_APP_RAWG}&page=${currentPage}`,
+        `https://api.rawg.io/api/games?key=${REACT_APP_RAWG}&page=${currentPage}&search=${searchText}&page_size=15`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -55,18 +71,11 @@ const GameList = (props) => {
 
   const showDetails = (element, id) => {
     console.log(element);
-    navigate('/gamedetails', { state: { myData: element } });
+    navigate('/gamedetails', { state: { gameData: element } });
   };
-
-  // Filter games based on search term
-  const filteredData = games.filter((game) =>
-    game.name.toLowerCase().includes(searchText.toLowerCase()),
-  );
-
+ 
   return (
     <>
-      <Sidebar />
-
       <Container id="container-custom">
         <Form className="d-flex" id="search-bar">
           <FormControl
@@ -77,16 +86,17 @@ const GameList = (props) => {
             value={searchText}
             onChange={handleSearch}
             id="search-input"
+            onKeyPress={handleKeyPress}
           />
-          <Button id="search-button" variant="outline-success">
-            Search
-          </Button>
+          <Button variant="outline-success" id="search-button" type="submit" onClick={(handleSearchFunctionality)}>Search</Button>
         </Form>
+        
+        <div className='gameCardListDiv'>
         <InfiniteScroll
-          dataLength={filteredData.length}
+          dataLength={games.length}
           next={getGameListFunction}
           hasMore={hasMore}
-          loader={<h3>Loading..</h3>}
+          loader={<h1>Loading games</h1>}
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Thats all!</b>
@@ -94,22 +104,19 @@ const GameList = (props) => {
           }
         >
           <Row xs={1} md={2} lg={3} className="g-4">
-            {filteredData.map((element, id) => (
-              <Col key={id}>
-                <Card onClick={() => showDetails(element, id)} id="card-custom">
-                  <Card.Img
-                    variant="top"
-                    src={element.background_image}
-                    id="img-custom"
-                  />
-                  <Card.Body id="card-body-custom">
-                    <Card.Title id="caption">{element.name}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+          {games.map((element, id) => (
+            <Col key={id}>
+              <Card onClick={() => showDetails(element, id)} id="card-custom">
+                <Card.Img variant="top" className="imageCustomSize" src={element.background_image} id="img-custom"/>
+                <Card.Body id="card-body-custom">
+                  <Card.Title id="caption">{element.name}</Card.Title>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
         </InfiniteScroll>
+        </div>
       </Container>
     </>
   );
