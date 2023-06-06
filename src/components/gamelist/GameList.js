@@ -55,7 +55,8 @@ const GameList = (props) => {
 
   const showDetails = (element, id) => {
     console.log(element);
-    navigate("/gamedetails");
+    navigate("/gamedetails", { state: { myData: element } });
+
   };
 
   // Filter games based on search term
