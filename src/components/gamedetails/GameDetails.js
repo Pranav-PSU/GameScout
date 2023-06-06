@@ -1,20 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Badge, Card } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Badge,
+  Button,
+  Card,
+  Carousel,
+} from "react-bootstrap";
 import Sidebar from "../sidebar/Sidebar.js";
 import "./GameDetails.css";
+import { useLocation } from "react-router-dom";
 
 const apiKey = "3896265182c3481ab09163b92a9cd5bd";
-const gameID = "fifa-22-xbox-one";
+// const gameID = "vampire-the-masquerade-bloodlines-2";
+let gameID = "fifa-22-xbox-one";
 const GameDetails = () => {
   const [game, setGame] = useState(null);
+  const [gameScreenshots, setGameScreenshots] = useState(null);
+  const location = useLocation();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  let textToShow = "...";
 
   useEffect(() => {
+    gameID = location.state.gameData.slug;
+    const getGameScreenshots = async () => {
+      try {
+        const response = await fetch(
+          `https://api.rawg.io/api/games/${gameID}/screenshots?key=${apiKey}`
+        );
+        const data = await response.json();
+        console.log("gameScreenshts", data);
+        setGameScreenshots(data);
+      } catch (error) {
+        console.error("Error fetching game screenshots:", error);
+      }
+    };
     const fetchGameDetails = async () => {
       try {
         const response = await fetch(
           `https://api.rawg.io/api/games/${gameID}?key=${apiKey}`
         );
         const data = await response.json();
+        console.log(data);
         setGame(data);
       } catch (error) {
         console.error("Error fetching game details:", error);
@@ -22,8 +51,9 @@ const GameDetails = () => {
     };
 
     fetchGameDetails();
+    getGameScreenshots();
   }, []);
-  if (game === null) {
+  if (game === null || gameScreenshots === null) {
     return <p>Loading...</p>;
   }
 
@@ -36,18 +66,37 @@ const GameDetails = () => {
             <Card
               className="image-card"
               style={{
-                backgroundImage: `url(${game.background_image})`,
-                height: "400px",
+                height: "500px",
                 position: "relative",
                 border: 0,
               }}
             >
-              <Badge className="top-left-badge" bg="light" text="dark">
-                Released : {game.released}
-              </Badge>
-              <Badge className="top-right-badge" bg="light" text="dark">
-                Rating : {game.rating}
-              </Badge>
+              <Carousel
+                indicators={false}
+                controls={true}
+                interval={5000}
+                pause={false}
+              >
+                {gameScreenshots.results.map((image, index) => (
+                  <Carousel.Item
+                    key={index}
+                    style={{
+                      backgroundImage: `url(${image.image})`,
+                      height: "500px",
+                    }}
+                  />
+                ))}
+              </Carousel>
+              <h4>
+                <Badge className="top-left-badge" bg="light" text="dark">
+                  Released : {game.released}
+                </Badge>
+              </h4>
+              <h4>
+                <Badge className="top-right-badge" bg="light" text="dark">
+                  Rating : {game.rating}
+                </Badge>
+              </h4>
               <Card.Body>
                 <Row>
                   <Col>
@@ -68,70 +117,94 @@ const GameDetails = () => {
         </Row>
         <Row className="mt-4">
           <Col>
-            <Card>
-              <Card.Header>About</Card.Header>
+            <Card
+              className="image-card"
+              style={{
+                backgroundImage: `url(${game.background_image})`,
+                height: "400px",
+                position: "cover",
+                border: 0,
+              }}
+            >
               <Card.Body>
-                <Card.Text>
-                  <Row>{game.description_raw}</Row>
-                </Card.Text>
+                <Row>
+                  <Col>
+                    <Card.Text className="text-white">
+                      {isExpanded
+                        ? game.description_raw
+                        : game.description_raw.slice(0, 300) + "..."}
+                      <Button
+                        variant="link"
+                        onClick={() => setIsExpanded(!isExpanded)}
+                      >
+                        {isExpanded ? "Read less" : "Read more"}
+                      </Button>
+                    </Card.Text>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>
         </Row>
+
         <Row className="mt-4">
           <Col>
             <Card
               style={{
                 backgroundImage: "linear-gradient(to right, lightgrey, grey)",
-
                 border: 0,
               }}
             >
-              <Card.Body>
-                <Card.Header>Game Details </Card.Header>
-                <Row>
-                  <Col>
-                    <Card.Text
-                      style={{
-                        textAlign: "left",
-                      }}
-                    >
-                      <strong>Platforms:</strong>{" "}
-                      {game.platforms
-                        .map((platformItem) => platformItem.platform.name)
-                        .join(", ")}{" "}
-                      <br />
-                      <strong>Genre:</strong>{" "}
-                      {game.genres.map((genre) => genre.name).join(", ")} <br />
-                      <strong>Release date:</strong> {game.released} <br />
-                      <strong>Developers:</strong>{" "}
-                      {game.developers
-                        .map((developer) => developer.name)
-                        .join(", ")}{" "}
-                      <br />
-                      <strong>Publishers:</strong>{" "}
-                      {game.publishers
-                        .map((publisher) => publisher.name)
-                        .join(", ")}{" "}
-                      <br />
-                    </Card.Text>
-                  </Col>
-                  <Col>
-                    <Card.Text
-                      style={{
-                        textAlign: "left",
-                      }}
-                    >
-                      <strong>Age rating:</strong> Not rated <br />
-                      <strong>Tags:</strong>{" "}
-                      {game.tags
-                        .slice(0, 10)
-                        .map((tag) => tag.name)
-                        .join(", ")}
-                    </Card.Text>
-                  </Col>
-                </Row>
-              </Card.Body>
+              <Card.Header style={{ backgroundColor: "grey" }}>
+                Game Details{" "}
+              </Card.Header>
+              <Row className="p-2">
+                <Col>
+                  <Card.Text
+                    style={{
+                      textAlign: "left",
+                    }}
+                  >
+                    <strong>Platforms:</strong>{" "}
+                    {game.platforms
+                      .map((platformItem, index) => (
+                        <span key={index} class="game-details">
+                          {platformItem.platform.name}
+                        </span>
+                      ))
+                      .reduce((prev, curr, index) => [prev, ", ", curr])}
+                    <br />
+                    <strong>Genre:</strong>{" "}
+                    {game.genres.map((genre) => genre.name).join(", ")} <br />
+                    <strong>Release date:</strong> {game.released} <br />
+                    <strong>Developers:</strong>{" "}
+                    {game.developers
+                      .map((developer) => developer.name)
+                      .join(", ")}{" "}
+                    <br />
+                    <strong>Publishers:</strong>{" "}
+                    {game.publishers
+                      .map((publisher) => publisher.name)
+                      .join(", ")}{" "}
+                    <br />
+                  </Card.Text>
+                </Col>
+                <Col>
+                  <Card.Text
+                    style={{
+                      textAlign: "left",
+                    }}
+                  >
+                    <strong>Age rating:</strong>
+                    <span class="game-details">Not rated</span> <br />
+                    <strong>Tags:</strong>{" "}
+                    {game.tags
+                      .slice(0, 10)
+                      .map((tag) => tag.name)
+                      .join(", ")}
+                  </Card.Text>
+                </Col>
+              </Row>
             </Card>
           </Col>
         </Row>

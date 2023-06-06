@@ -12,9 +12,9 @@ import {
 } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import './GameList.css'
-import placeholder from './placeholder.png';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import "./GameList.css";
+import placeholder from "./placeholder.png";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const GameList = (props) => {
   const [games, setGames] = useState([]);
@@ -36,11 +36,11 @@ const GameList = (props) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setGames(prevGames => [...prevGames, ...data.results]);
+      setGames((prevGames) => [...prevGames, ...data.results]);
       if (data.next === null) {
         setHasMore(false);
       } else {
-        setCurrentPage(prevPage => prevPage + 1);
+        setCurrentPage((prevPage) => prevPage + 1);
       }
     } catch (error) {
       console.error("Error fetching data from RAWG API:", error);
@@ -55,19 +55,18 @@ const GameList = (props) => {
 
   const showDetails = (element, id) => {
     console.log(element);
-    navigate("/gamedetails", { state: { myData: element } });
-
+    navigate("/gamedetails", { state: { gameData: element } });
   };
 
   // Filter games based on search term
-  const filteredData = games.filter(game =>
+  const filteredData = games.filter((game) =>
     game.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
     <>
-      <Sidebar/>
-        
+      <Sidebar />
+
       <Container>
         <Form className="d-flex">
           <FormControl
@@ -86,23 +85,27 @@ const GameList = (props) => {
           hasMore={hasMore}
           loader={<h3>Loading..</h3>}
           endMessage={
-            <p style={{ textAlign: 'center' }}>
+            <p style={{ textAlign: "center" }}>
               <b>Thats all!</b>
             </p>
           }
         >
           <Row xs={1} md={2} lg={3} className="g-4">
-          {filteredData.map((element, id) => (
-            <Col key={id}>
-              <Card onClick={() => showDetails(element, id)} id="card-custom">
-                <Card.Img variant="top" src={element.background_image} id="img-custom"/>
-                <Card.Body id="card-body-custom">
-                  <Card.Title id="caption">{element.name}</Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+            {filteredData.map((element, id) => (
+              <Col key={id}>
+                <Card onClick={() => showDetails(element, id)} id="card-custom">
+                  <Card.Img
+                    variant="top"
+                    src={element.background_image}
+                    id="img-custom"
+                  />
+                  <Card.Body id="card-body-custom">
+                    <Card.Title id="caption">{element.name}</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
         </InfiniteScroll>
       </Container>
     </>
@@ -112,4 +115,3 @@ const GameList = (props) => {
 GameList.propTypes = {};
 
 export default GameList;
-
