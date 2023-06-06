@@ -1,0 +1,48 @@
+#card-custom {
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
+    /* offset-x | offset-y | blur-radius | color */
+    box-shadow: 2px 4px 8px black;
+    border-top: 1px solid rgb(24, 0, 0);
+    border-left: 1px solid rgb(24, 0, 0);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    border-right: 1px solid rgb(0, 0, 0);
+    border-radius: 16px;
+    background-color: #562a2a;
+}
+#card-custom:hover {
+    cursor: pointer;
+}
+
+/* https://stackoverflow.com/questions/4502633/how-to-affect-other-elements-when-one-element-is-hovered */
+#card-custom:hover > #card-body-custom {
+    background-image: linear-gradient(to left top, #3a0c0c, #3f0a0a, #440707, #490304, #4e0000);
+    background-image: linear-gradient(to left top, #2f0707, #370607, #3f0405, #460203, #4e0000);
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/cursor */
+}
+
+#card-body-custom {
+    border-top: 1px solid rgb(120, 82, 82);
+    border-left: 1px solid rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    border-right: 1px solid rgb(0, 0, 0);
+    border-radius: 16px;
+    background-image: linear-gradient(to left bottom, #210e0e, #2c0f0f, #360f10, #410e0f, #4c0d0d);
+    background-image: linear-gradient(to left top, #210e0e, #2b0d0d, #350a0a, #3f0606, #480000);
+    background-image: linear-gradient(to left top, #210e0e, #280c0c, #2f0909, #360505, #3d0000);
+    
+}
+
+#img-custom {
+    color: linear-gradient(to left bottom, #4e2020, #522424, #552929, #592d2d, #5c3232);
+    background-image: linear-gradient(to left bottom, #4e2020, #522424, #552929, #592d2d, #5c3232);
+    border-radius: 16px;
+}
+
+#caption {
+    color: rgb(238, 238, 238);
+}
+
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
