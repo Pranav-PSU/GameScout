@@ -2,8 +2,8 @@
   position: relative;
   height: 400px;
   background-size: cover;
+  background-position: center;
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .image-card .card-body {
@@ -11,7 +11,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
 }
 .top-left-badge {
   position: absolute;
@@ -27,4 +27,13 @@
 .top-left-badge,
 .top-right-badge {
   text-shadow: none;
+}
+
+.game-details {
+  text-decoration: underline;
+}
+
+.game-details:hover {
+  color: darkslategrey;
+  cursor: pointer;
 }
