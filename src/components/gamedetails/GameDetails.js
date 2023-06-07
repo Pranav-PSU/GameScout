@@ -212,6 +212,8 @@ const GameDetails = () => {
               </Card.Body>
             </Card>
           </Col>
+        </Row>
+        <Row className="mt-4">
           <Col>
             <Card id="card">
               <Card.Header id="card-header">
