@@ -170,6 +170,10 @@
   margin-left: 7rem;
 }
 
+#end-marker-para {
+  text-align: center;
+}
+
 .container {
   padding-top: 2rem;
   padding-bottom: 2rem;
