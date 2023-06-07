@@ -93,6 +93,60 @@ const Dashboard = () => {
       bar: {
         borderWidth: 2,
       },
+      arc: {
+        borderWidth: 0,
+      },
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        display: true,
+        labels: {
+          color: 'rgb(210,210,210)',
+          font: {
+            size: 15,
+          },
+          padding: 20,
+        },
+      },
+      title: {
+        display: true,
+        text: '',
+      },
+      customCanvasBackgroundColor: {
+        color: 'maroon',
+      },
+    },
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 20,
+        right: 20,
+        top: -20,
+        bottom: 20,
+      },
+    },
+  };
+
+  const optionForBarChart = {
+    scales: {
+      y: {
+        ticks: {
+          color: 'rgb(210,210,210)',
+          beginAtZero: true,
+          font: { size: 15 },
+        },
+      },
+      x: {
+        ticks: { color: 'rgb(210,210,210)', beginAtZero: true },
+      },
+    },
+    indexAxis: 'y',
+    elements: {
+      bar: {
+        borderWidth: 1,
+      },
     },
     responsive: true,
     plugins: {
@@ -283,17 +337,20 @@ const Dashboard = () => {
           /> */}
       <Container>
         <Row>
-          <h1 style={{ color: 'white' }}>Game Scout</h1>
+          <div id="title-container-dashboard">
+            <h1 style={{ color: 'white' }}>Game Scout</h1>
+          </div>
         </Row>
         <Row>
           <Col>
-            <Card className="chartCard">
+            <Card className="chartCard" id="chart-card">
+              <Card.Header>Top Rated Games This Year</Card.Header>
               <Card.Body>
-                {(optionForChart.text = 'Top Rated Games in Year')}
-                <div class="chart-holder-div">
+                {(optionForChart.text = '')}
+                <div class="chart-holder-div" id="bar-chart-holder-div">
                   <Bar
                     plugins={pluginsForChart}
-                    options={optionForChart}
+                    options={optionForBarChart}
                     data={dataRatingcCart}
                   />
                 </div>
@@ -302,26 +359,32 @@ const Dashboard = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Card className="chartCard">
+          <Col lg={6}>
+            <Card className="chartCard" id="chart-card">
+              <Card.Header>Number Of Games Per Platform</Card.Header>
               <Card.Body>
-                {(optionForChart.text = 'Number of Games Present Per Genre')}
+                {(optionForChart.text = '')}
+                <div class="chart-holder-div">
+                  <Doughnut
+                    plugins={pluginsForChart}
+                    data={dataLineChart}
+                    options={optionForChart}
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col lg={6}>
+            <Card className="chartCard" id="chart-card">
+              <Card.Header>Number of Games Present Per Genre</Card.Header>
+              <Card.Body>
+                {(optionForChart.text = '')}
                 <div class="chart-holder-div">
                   <Pie
                     plugins={pluginsForChart}
                     options={optionForChart}
                     data={dataPieChart}
                   />
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={12}>
-            <Card className="chartCard">
-              <Card.Body>
-                {(optionForChart.text = 'Number of games per platform')}
-                <div class="chart-holder-div">
-                  <Doughnut plugins={pluginsForChart} data={dataLineChart} />
                 </div>
               </Card.Body>
             </Card>
