@@ -9,3 +9,64 @@
   background-position: center;
   cursor: pointer;
 }
+
+.chartCard {
+  box-shadow: 2px 4px 8px rgb(0, 0, 0);
+  border-top: 1px solid rgb(24, 0, 0);
+  border-left: 1px solid rgb(24, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  border-right: 1px solid rgb(0, 0, 0);
+  border-radius: 16px;
+  background-image: linear-gradient(
+    to left top,
+    #2f0707,
+    #370607,
+    #3f0405,
+    #460203,
+    #4e0000
+  );
+  color: rgb(210, 210, 210);
+  display: inline-block;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+  margin-top: 0.2rem;
+  text-align: justify;
+  height: fit-content;
+  padding: 0;
+}
+
+.scrollable-div {
+  box-shadow: 2px 4px 8px rgb(0, 0, 0);
+  border-top: 1px solid rgb(24, 0, 0);
+  border-left: 1px solid rgb(24, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  border-right: 1px solid rgb(0, 0, 0);
+  border-radius: 16px;
+  background-image: linear-gradient(
+    to left top,
+    #2f0707,
+    #370607,
+    #3f0405,
+    #460203,
+    #4e0000
+  );
+  color: rgb(210, 210, 210);
+  display: block;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 0rem;
+  margin-top: 0.2rem;
+  text-align: justify;
+}
+
+.chart-holder-div {
+  height: 20rem;
+  position: relative;
+  margin: 0rem;
+}
+
+canvas {
+  width: 100%;
+  margin: auto;
+}
