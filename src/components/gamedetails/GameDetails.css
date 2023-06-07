@@ -114,6 +114,7 @@
 #carousel-item {
   border-radius: 12px;
   object-fit: fill;
+  height: 500px;
 }
 
 #carousel-container-card {
@@ -123,5 +124,121 @@
   box-shadow: 2px 4px 8px rgb(0, 0, 0);
   margin: auto;
   height: 500px;
-  width: 800px;
+  /* position: 'relative'; */
+}
+
+#game-overview-card {
+  height: 500px;
+  border-radius: 16px;
+  border: 2px solid rgb(143, 36, 36);
+}
+
+#card {
+  box-shadow: 2px 4px 8px rgb(0, 0, 0);
+  border-top: 1px solid rgb(24, 0, 0);
+  border-left: 1px solid rgb(24, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  border-right: 1px solid rgb(0, 0, 0);
+  border-radius: 16px;
+  background-image: linear-gradient(
+    to left top,
+    #2f0707,
+    #370607,
+    #3f0405,
+    #460203,
+    #4e0000
+  );
+  color: rgb(210, 210, 210);
+  display: block;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 0rem;
+  margin-top: 0.2rem;
+  text-align: justify;
+}
+
+#card-body {
+  border-top: 1px solid rgb(120, 82, 82);
+  border-left: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  border-right: 1px solid rgb(0, 0, 0);
+  border-radius: 16px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-image: linear-gradient(
+    to left top,
+    #412929,
+    #4f3131,
+    #5d3939,
+    #6b4141,
+    #7a4949
+  );
+  min-height: 14rem;
+}
+
+#card-body-shop {
+  border-top: 1px solid rgb(120, 82, 82);
+  border-left: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  border-right: 1px solid rgb(0, 0, 0);
+  border-radius: 16px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-image: linear-gradient(
+    to left top,
+    #412929,
+    #4f3131,
+    #5d3939,
+    #6b4141,
+    #7a4949
+  );
+  height: fit-content;
+  padding: 0;
+  margin: 0;
+}
+
+#card-header {
+  border-radius: 16px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-image: linear-gradient(
+    to left top,
+    #2f0707,
+    #370607,
+    #3f0405,
+    #460203,
+    #4e0000
+  );
+  text-align: center;
+}
+
+#shop-link:link,
+#shop-link:visited,
+#shop-link:active {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 16px;
+  color: rgb(210, 210, 210);
+  display: inline-block;
+  text-decoration: none;
+  width: 95%;
+  margin: 0.2rem;
+  text-align: center;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+#shop-link:hover {
+  background-image: linear-gradient(
+    to left top,
+    #380000,
+    #4a0004,
+    #5c0006,
+    #6f0004,
+    #810000
+  );
+  border: 1px solid #800000;
+}
+
+.game-details:hover {
+  color: rgb(210, 210, 210);
 }
