@@ -1,11 +1,11 @@
 .top-card {
   background-image: linear-gradient(
     to left top,
-    #420a0a,
-    #4b0809,
-    #540606,
-    #5d0304,
-    #660000
+    #2b0000,
+    #350202,
+    #400103,
+    #4b0102,
+    #560000
   );
   border-radius: 12px;
   border-top-left-radius: 0;
@@ -85,10 +85,10 @@
 #nav-link-explore:hover {
   background-image: linear-gradient(
     to left top,
-    #560707,
-    #610506,
-    #6b0405,
-    #760203,
+    #380000,
+    #4a0004,
+    #5c0006,
+    #6f0004,
     #810000
   );
   border: 1px solid rgb(159, 62, 62);
@@ -97,10 +97,10 @@
 #nav-link-dashboard:hover {
   background-image: linear-gradient(
     to left top,
-    #560707,
-    #610506,
-    #6b0405,
-    #760203,
+    #380000,
+    #4a0004,
+    #5c0006,
+    #6f0004,
     #810000
   );
   border: 1px solid rgb(159, 62, 62);
