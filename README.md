@@ -1,4 +1,4 @@
-# Game Scout - A Video Game Dashboard  Application
+# Game Scout - A Video Game Dashboard Application
 
 
 ## Overview
