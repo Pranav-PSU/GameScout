@@ -11,7 +11,7 @@ A non-exhaustive list of the distinctive features intended to be added to the ch
 -   Dashboard that shows analytics on various parameters like Genre, Platforms, Popularity etc
 -   Advanced game search and filtering options
 -   Details of the selected Games
-
+_____
 ## Steps to set up the repository
 
  - Clone the repo from either of the following links:
