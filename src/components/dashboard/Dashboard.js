@@ -20,6 +20,8 @@ const Dashboard = () => {
   const [mostPopular, setMostPopular] = useState(null);
   const [easports, setEAsports] = useState(null);
   const [highRated, setHighRated] = useState(null);
+  const [genre, setGenre] = useState(null);
+  const [platform, setPlatform] = useState(null);
   // const [game, setGame] = useState(null);
   const navigate = useNavigate();
   let backgroundColors = [
@@ -71,7 +73,6 @@ const Dashboard = () => {
           `https://api.rawg.io/api/games?dates=2019-01-01,2019-12-31&ordering=-added&key=${apiKey}`
         );
         const data = await response.json();
-        console.log(data);
         setMostPopular(data.results);
       } catch (error) {
         console.error("Error fetching game details:", error);
@@ -83,7 +84,7 @@ const Dashboard = () => {
           `https://api.rawg.io/api/games?ordering=-rating&developers=109&key=${apiKey}`
         );
         const data = await response.json();
-        console.log(data);
+
         setEAsports(data.results);
       } catch (error) {
         console.error("Error fetching game details:", error);
@@ -100,6 +101,50 @@ const Dashboard = () => {
         console.error("Error fetching game details:", error);
       }
     };
+    const genresGet = async () => {
+      let genre = [];
+      try {
+        const response = await fetch(
+          `https://api.rawg.io/api/genres?key=${apiKey}`
+        );
+        const data = await response.json();
+        const genres = data.results;
+
+        for (const genreItem of genres) {
+          genre.push({ name: genreItem.name, count: genreItem.games_count });
+        }
+
+        setGenre(genre);
+        console.log(genre);
+      } catch (error) {
+        console.error("Error fetching game details:", error);
+      }
+    };
+
+    const platformsGet = async () => {
+      let platformArr = [];
+      try {
+        const response = await fetch(
+          `https://api.rawg.io/api/platforms?key=${apiKey}`
+        );
+        const data = await response.json();
+        const platforms = data.results;
+        console.log(platforms);
+        for (const platform of platforms) {
+          platformArr.push({
+            name: platform.name,
+            count: platform.games_count,
+          });
+        }
+
+        setPlatform(platformArr);
+      } catch (error) {
+        console.error("Error fetching game details:", error);
+      }
+    };
+
+    genresGet();
+    platformsGet();
     highestRatedGames();
     fetchGameDetails();
     EASportGames();
