@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Container, Alert, Button } from "react-bootstrap";
-import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
-import Chart from "chart.js/auto";
-import "./Dashboard.css";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Card, Col, Row, Container, Alert, Button } from 'react-bootstrap';
+import { Bar, Doughnut, Line, Pie } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 import { DartsSpinnerOverlay } from 'react-spinner-overlay';
 
-const apiKey = "3896265182c3481ab09163b92a9cd5bd";
-const gameID = "fifa-22-xbox-one";
+const apiKey = '3896265182c3481ab09163b92a9cd5bd';
+const gameID = 'fifa-22-xbox-one';
 
 const ratingToVariant = {
-  1: "danger",
-  2: "danger",
-  3: "warning",
-  4: "warning",
-  5: "success",
+  1: 'danger',
+  2: 'danger',
+  3: 'warning',
+  4: 'warning',
+  5: 'success',
 };
 const Dashboard = () => {
   const [mostPopular, setMostPopular] = useState(null);
@@ -26,29 +26,40 @@ const Dashboard = () => {
   const [platformCount, setPlatformCount] = useState(null);
   // const [game, setGame] = useState(null);
   const navigate = useNavigate();
-  const date = "2010-01-01";
-  const chartRatingdate="2022-01-01,2022-12-31";
-  
+  const date = '2010-01-01';
+  const chartRatingdate = '2022-01-01,2022-12-31';
+
   const [topRatedGameYear, setTopRatedGameYear] = useState(null);
   const [ratingCount, setRatingCount] = useState(null);
   const [topRatedGames, setTopRatedGames] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   let backgroundColors = [
-    "rgba(54, 162, 235, 0.8)",
-    "rgba(255, 206, 86, 0.8)",
-    "rgba(255, 99, 132, 0.8)",
-    "rgba(75, 192, 192, 0.8)",
-    "rgba(153, 102, 255, 0.8)",
-    "rgba(255, 159, 64, 0.8)",
-    "rgba(199, 199, 199, 0.8)",
-    "rgba(83, 102, 255, 0.8)",
-    "rgba(40, 159, 64, 0.8)",
-    "rgba(210, 199, 199, 0.8)",
-    "rgba(78, 52, 199, 0.8)",
+    'rgba(54, 162, 235, 0.8)',
+    'rgba(255, 206, 86, 0.8)',
+    'rgba(255, 99, 132, 0.8)',
+    'rgba(75, 192, 192, 0.8)',
+    'rgba(153, 102, 255, 0.8)',
+    'rgba(255, 159, 64, 0.8)',
+    'rgba(199, 199, 199, 0.8)',
+    'rgba(83, 102, 255, 0.8)',
+    'rgba(40, 159, 64, 0.8)',
+    'rgba(210, 199, 199, 0.8)',
+    'rgba(78, 52, 199, 0.8)',
   ];
 
-  
+  const plugin = {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = '#1e0707';
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    },
+  };
+
   const dataRatingcCart = {
     labels: topRatedGames,
     datasets: [
@@ -77,7 +88,7 @@ const Dashboard = () => {
     ],
   };
   const optionForChart = {
-    indexAxis: "y",
+    indexAxis: 'y',
     elements: {
       bar: {
         borderWidth: 2,
@@ -86,22 +97,35 @@ const Dashboard = () => {
     responsive: true,
     plugins: {
       legend: {
-        display:false,
-        
+        display: false,
       },
       title: {
         display: true,
-        text: "",
+        text: '',
+      },
+      customCanvasBackgroundColor: {
+        color: 'maroon',
+      },
+    },
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 20,
+        right: 20,
+        top: -20,
+        bottom: 20,
       },
     },
   };
+
+  const pluginsForChart = [plugin];
 
   useEffect(() => {
     const fetchGameDetails = async () => {
       // setLoading(true)
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?dates=2019-01-01,2019-12-31&ordering=-added&key=${apiKey}`
+          `https://api.rawg.io/api/games?dates=2019-01-01,2019-12-31&ordering=-added&key=${apiKey}`,
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -110,38 +134,38 @@ const Dashboard = () => {
         setMostPopular(data.results);
       } catch (error) {
         console.error('Error fetching data from RAWG API:', error);
-      } finally{
+      } finally {
         // setLoading(false)
       }
     };
     const EASportGames = async () => {
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?ordering=-rating&developers=109&key=${apiKey}`
+          `https://api.rawg.io/api/games?ordering=-rating&developers=109&key=${apiKey}`,
         );
         const data = await response.json();
 
         setEAsports(data.results);
       } catch (error) {
-        console.error("Error fetching game details:", error);
+        console.error('Error fetching game details:', error);
       }
     };
     const highestRatedGames = async () => {
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?dates=&ordering=-rating&key=${apiKey}`
+          `https://api.rawg.io/api/games?dates=&ordering=-rating&key=${apiKey}`,
         );
         const data = await response.json();
         setHighRated(data.results);
       } catch (error) {
-        console.error("Error fetching game details:", error);
+        console.error('Error fetching game details:', error);
       }
     };
     const getGenresDataForChart = async () => {
       let genre = [];
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/genres?key=${apiKey}`
+          `https://api.rawg.io/api/genres?key=${apiKey}`,
         );
         const data = await response.json();
         const genres = data.results;
@@ -150,21 +174,21 @@ const Dashboard = () => {
           genre.push({ name: genreItem.name, count: genreItem.games_count });
         }
 
-          genre.sort((a, b) => b.count - a.count);
+        genre.sort((a, b) => b.count - a.count);
 
-          let top10 = genre.slice(0, 10);
-          let others = genre.slice(10);
+        let top10 = genre.slice(0, 10);
+        let others = genre.slice(10);
 
-          let othersCount = others.reduce((sum, item) => sum + item.count, 0);
+        let othersCount = others.reduce((sum, item) => sum + item.count, 0);
 
-          top10.push({name: 'Others', count: othersCount});
-        
-          let genreNames = top10.map(element => element.name)
-          let genreCounts = top10.map(element => element.count)
+        top10.push({ name: 'Others', count: othersCount });
+
+        let genreNames = top10.map((element) => element.name);
+        let genreCounts = top10.map((element) => element.count);
         setGenreName(genreNames);
         setGenreCount(genreCounts);
       } catch (error) {
-        console.error("Error fetching game details:", error);
+        console.error('Error fetching game details:', error);
       }
     };
 
@@ -172,7 +196,7 @@ const Dashboard = () => {
       let platformArr = [];
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/platforms?key=${apiKey}`
+          `https://api.rawg.io/api/platforms?key=${apiKey}`,
         );
         const data = await response.json();
         const platforms = data.results;
@@ -184,25 +208,22 @@ const Dashboard = () => {
           });
         }
 
+        platformArr.sort((a, b) => b.count - a.count);
 
-          platformArr.sort((a, b) => b.count - a.count);
+        let top10 = platformArr.slice(0, 10);
+        let others = platformArr.slice(10);
 
-          let top10 = platformArr.slice(0, 10);
-          let others = platformArr.slice(10);
+        let othersCount = others.reduce((sum, item) => sum + item.count, 0);
 
-          let othersCount = others.reduce((sum, item) => sum + item.count, 0);
+        top10.push({ name: 'Others', count: othersCount });
 
-          top10.push({name: 'Others', count: othersCount});
-
-        let platformName = top10.map(element=>element.name)
-        let platformCount = top10.map(element=>element.count)
-
-
+        let platformName = top10.map((element) => element.name);
+        let platformCount = top10.map((element) => element.count);
 
         setPlatformName(platformName);
         setPlatformCount(platformCount);
       } catch (error) {
-        console.error("Error fetching game details:", error);
+        console.error('Error fetching game details:', error);
       }
     };
 
@@ -218,38 +239,41 @@ const Dashboard = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&dates=${chartRatingdate}&ordering=-added&page_size=10`
+        `https://api.rawg.io/api/games?key=${apiKey}&dates=${chartRatingdate}&ordering=-added&page_size=10`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      const ratingCountData = data.results.map(element => ({
-      ratingCountDataNames: element.ratings_count,
-      topRatedGameNames: element.name
-    }));
-    let sortedData = ratingCountData.sort((a, b) => b.ratingCountData - a.ratingCountData);
-    let sortedGameNames = sortedData.map(game => game.topRatedGameNames);
-    let sortedRatingCounts = sortedData.map(game => game.ratingCountDataNames);
-    setRatingCount(sortedRatingCounts);
-    setTopRatedGames(sortedGameNames);
+      const ratingCountData = data.results.map((element) => ({
+        ratingCountDataNames: element.ratings_count,
+        topRatedGameNames: element.name,
+      }));
+      let sortedData = ratingCountData.sort(
+        (a, b) => b.ratingCountData - a.ratingCountData,
+      );
+      let sortedGameNames = sortedData.map((game) => game.topRatedGameNames);
+      let sortedRatingCounts = sortedData.map(
+        (game) => game.ratingCountDataNames,
+      );
+      setRatingCount(sortedRatingCounts);
+      setTopRatedGames(sortedGameNames);
     } catch (error) {
       console.error('Error fetching data from RAWG API:', error);
-    } finally{
+    } finally {
       setLoading(false);
     }
   };
   const showDetails = (element, id) => {
-    navigate("/gamedetails", { state: { gameData: element } });
+    navigate('/gamedetails', { state: { gameData: element } });
   };
   if (mostPopular === null) {
     return <p>Loading...</p>;
   }
 
   return (
-    
     <div>
-       {/* <DartsSpinnerOverlay
+      {/* <DartsSpinnerOverlay
             overlayColor="rgb(255 255 255 / 38%)"
             size={90}
             loading={loading}
@@ -259,46 +283,53 @@ const Dashboard = () => {
           /> */}
       <Container>
         <Row>
-          <h4 style={{ color: "white" }}>Welcome to Game Scout App</h4>
+          <h1 style={{ color: 'white' }}>Game Scout</h1>
         </Row>
         <Row>
-          <Col md={6} lg={6}>
+          <Col>
             <Card className="chartCard">
               <Card.Body>
-                {
-                  optionForChart.text="Top Rated Games in Year"
-                }
-                <Bar options={optionForChart} data={dataRatingcCart} style={{height: "300px"}} />
+                {(optionForChart.text = 'Top Rated Games in Year')}
+                <div class="chart-holder-div">
+                  <Bar
+                    plugins={pluginsForChart}
+                    options={optionForChart}
+                    data={dataRatingcCart}
+                  />
+                </div>
               </Card.Body>
             </Card>
           </Col>
-          <Col md={6}>
+        </Row>
+        <Row>
+          <Col>
             <Card className="chartCard">
               <Card.Body>
-                {
-                  optionForChart.text="Number of Games Present Per Genre"
-                }
-                <Pie options={optionForChart} data={dataPieChart} style={{height: "300px"}} />
+                {(optionForChart.text = 'Number of Games Present Per Genre')}
+                <div class="chart-holder-div">
+                  <Pie
+                    plugins={pluginsForChart}
+                    options={optionForChart}
+                    data={dataPieChart}
+                  />
+                </div>
               </Card.Body>
             </Card>
           </Col>
-          </Row>
-          <Row>
-          <Col md={12} height={300}>
+          <Col md={12}>
             <Card className="chartCard">
               <Card.Body>
-                {
-                  optionForChart.text="Number of games per platform"
-                }
-                <Doughnut  data={dataLineChart} style={{height: "300px"}} />
+                {(optionForChart.text = 'Number of games per platform')}
+                <div class="chart-holder-div">
+                  <Doughnut plugins={pluginsForChart} data={dataLineChart} />
+                </div>
               </Card.Body>
             </Card>
           </Col>
-
         </Row>
         <Row>
           <Col lg={4}>
-            <Card className="scrollable-div" style={{ height: "500px" }}>
+            <Card className="scrollable-div" style={{ height: '500px' }}>
               <Card.Header>Most popular games in 2019</Card.Header>
               <Card.Body>
                 {mostPopular.map((item, index) => (
@@ -308,11 +339,11 @@ const Dashboard = () => {
                     className="alert-hover"
                     style={{
                       backgroundImage: `url(${item.background_image})`,
-                      color: "white",
+                      color: 'white',
                     }}
                   >
                     <p>
-                      {item.name}{" "}
+                      {item.name}{' '}
                       <Button
                         className="btn btn-sm"
                         key={index}
@@ -324,14 +355,14 @@ const Dashboard = () => {
                     <hr />
                     <p>Released : {item.released}</p>
                     <p>
-                      Platforms :{" "}
+                      Platforms :{' '}
                       {item.platforms
                         .map((platformItem, index) => (
                           <span key={index}>{platformItem.platform.name}</span>
                         ))
-                        .reduce((prev, curr, index) => [prev, ", ", curr])}
+                        .reduce((prev, curr, index) => [prev, ', ', curr])}
                     </p>
-                    <p className="view-details" style={{ display: "none" }}>
+                    <p className="view-details" style={{ display: 'none' }}>
                       View Details
                     </p>
                   </Alert>
@@ -340,7 +371,7 @@ const Dashboard = () => {
             </Card>
           </Col>
           <Col lg={4}>
-            <Card className="scrollable-div" style={{ height: "500px" }}>
+            <Card className="scrollable-div" style={{ height: '500px' }}>
               <Card.Header>Highest rated game by Electronic Arts</Card.Header>
               <Card.Body>
                 {easports.map((item, index) => (
@@ -350,11 +381,11 @@ const Dashboard = () => {
                     className="alert-hover"
                     style={{
                       backgroundImage: `url(${item.background_image})`,
-                      color: "white",
+                      color: 'white',
                     }}
                   >
                     <p>
-                      {item.name}{" "}
+                      {item.name}{' '}
                       <Button
                         className="btn btn-sm"
                         key={index}
@@ -366,14 +397,14 @@ const Dashboard = () => {
                     <hr />
                     <p>Released : {item.released}</p>
                     <p>
-                      Platforms :{" "}
+                      Platforms :{' '}
                       {item.platforms
                         .map((platformItem, index) => (
                           <span key={index}>{platformItem.platform.name}</span>
                         ))
-                        .reduce((prev, curr, index) => [prev, ", ", curr])}
+                        .reduce((prev, curr, index) => [prev, ', ', curr])}
                     </p>
-                    <p className="view-details" style={{ display: "none" }}>
+                    <p className="view-details" style={{ display: 'none' }}>
                       View Details
                     </p>
                   </Alert>
@@ -382,7 +413,7 @@ const Dashboard = () => {
             </Card>
           </Col>
           <Col lg={4}>
-            <Card className="scrollable-div" style={{ height: "500px" }}>
+            <Card className="scrollable-div" style={{ height: '500px' }}>
               <Card.Header>Highest rated games from 2001</Card.Header>
               <Card.Body>
                 {highRated.map((item, index) => (
@@ -392,11 +423,11 @@ const Dashboard = () => {
                     className="alert-hover"
                     style={{
                       backgroundImage: `url(${item.background_image})`,
-                      color: "white",
+                      color: 'white',
                     }}
                   >
                     <p>
-                      {item.name}{" "}
+                      {item.name}{' '}
                       <Button
                         className="btn btn-sm"
                         key={index}
@@ -408,14 +439,14 @@ const Dashboard = () => {
                     <hr />
                     <p>Released : {item.released}</p>
                     <p>
-                      Platforms :{" "}
+                      Platforms :{' '}
                       {item.platforms
                         .map((platformItem, index) => (
                           <span key={index}>{platformItem.platform.name}</span>
                         ))
-                        .reduce((prev, curr, index) => [prev, ", ", curr])}
+                        .reduce((prev, curr, index) => [prev, ', ', curr])}
                     </p>
-                    <p className="view-details" style={{ display: "none" }}>
+                    <p className="view-details" style={{ display: 'none' }}>
                       View Details
                     </p>
                   </Alert>
