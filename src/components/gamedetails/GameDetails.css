@@ -95,3 +95,13 @@
   margin-top: 0;
   padding-top: 0;
 }
+
+#released-badge,
+#rating-badge {
+  background-color: #00000078 !important;
+  padding: 0.7rem;
+}
+
+#carousel-text {
+  color: white;
+}

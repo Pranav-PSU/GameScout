@@ -80,6 +80,7 @@ const GameDetails = () => {
               }}
             >
               <Carousel
+                id="carousel-custom"
                 indicators={false}
                 controls={true}
                 interval={5000}
@@ -87,6 +88,7 @@ const GameDetails = () => {
               >
                 {gameScreenshots.results.map((image, index) => (
                   <Carousel.Item
+                    id="carousel-item"
                     key={index}
                     style={{
                       backgroundImage: `url(${image.image})`,
@@ -96,27 +98,29 @@ const GameDetails = () => {
                 ))}
               </Carousel>
               <h4>
-                <Badge className="top-left-badge" bg="light" text="dark">
+                <Badge
+                  id="released-badge"
+                  className="top-left-badge"
+                  bg="dark"
+                  text="light"
+                >
                   Released : {game.released}
                 </Badge>
               </h4>
               <h4>
-                <Badge className="top-right-badge" bg="light" text="dark">
+                <Badge
+                  id="rating-badge"
+                  className="top-right-badge"
+                  bg="dark"
+                  text="light"
+                >
                   Rating : {game.rating}
                 </Badge>
               </h4>
               <Card.Body>
                 <Row>
                   <Col>
-                    <Card.Title style={{ fontSize: '2rem', color: 'white' }}>
-                      <a
-                        style={{ color: 'white' }}
-                        target="_blank"
-                        href={game.website}
-                      >
-                        {game.name}
-                      </a>
-                    </Card.Title>
+                    <Card.Title id="carousel-text">Game Screenshots</Card.Title>
                   </Col>
                 </Row>
               </Card.Body>
