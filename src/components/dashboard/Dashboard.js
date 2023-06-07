@@ -335,7 +335,7 @@ const Dashboard = () => {
             borderWidth="8"
             borderHeight="25"
           /> */}
-      <Container>
+      <Container id="main-container">
         <Row>
           <div id="title-container-dashboard">
             <h1 style={{ color: 'white' }}>Game Scout</h1>
@@ -344,7 +344,9 @@ const Dashboard = () => {
         <Row>
           <Col>
             <Card className="chartCard" id="chart-card">
-              <Card.Header>Top Rated Games This Year</Card.Header>
+              <Card.Header id="card-header">
+                Top Rated Games This Year
+              </Card.Header>
               <Card.Body>
                 {(optionForChart.text = '')}
                 <div class="chart-holder-div" id="bar-chart-holder-div">
@@ -361,7 +363,9 @@ const Dashboard = () => {
         <Row>
           <Col lg={6}>
             <Card className="chartCard" id="chart-card">
-              <Card.Header>Number Of Games Per Platform</Card.Header>
+              <Card.Header id="card-header">
+                Number Of Games Per Platform
+              </Card.Header>
               <Card.Body>
                 {(optionForChart.text = '')}
                 <div class="chart-holder-div">
@@ -376,7 +380,9 @@ const Dashboard = () => {
           </Col>
           <Col lg={6}>
             <Card className="chartCard" id="chart-card">
-              <Card.Header>Number of Games Present Per Genre</Card.Header>
+              <Card.Header id="card-header">
+                Number of Games Present Per Genre
+              </Card.Header>
               <Card.Body>
                 {(optionForChart.text = '')}
                 <div class="chart-holder-div">
@@ -392,129 +398,164 @@ const Dashboard = () => {
         </Row>
         <Row>
           <Col lg={4}>
-            <Card className="scrollable-div" style={{ height: '500px' }}>
-              <Card.Header>Most popular games in 2019</Card.Header>
-              <Card.Body>
-                {mostPopular.map((item, index) => (
-                  <Alert
-                    onClick={() => showDetails(item)}
-                    key={index}
-                    className="alert-hover"
-                    style={{
-                      backgroundImage: `url(${item.background_image})`,
-                      color: 'white',
-                    }}
-                  >
-                    <p>
-                      {item.name}{' '}
-                      <Button
-                        className="btn btn-sm"
+            <Card id="scrollable-div-custom" style={{ height: '500px' }}>
+              <Card.Header id="card-header">
+                Most popular games in 2019
+              </Card.Header>
+              <div id="alert-outer-div">
+                <div id="alert-container-div" className="scrollable-div">
+                  <Card.Body>
+                    {mostPopular.map((item, index) => (
+                      <Alert
+                        id="alert"
+                        onClick={() => showDetails(item)}
                         key={index}
-                        variant={ratingToVariant[Math.ceil(item.rating)]}
+                        className="alert-hover"
+                        style={{
+                          backgroundImage: `url(${item.background_image})`,
+                          color: 'white',
+                        }}
                       >
-                        ★ {item.rating}
-                      </Button>
-                    </p>
-                    <hr />
-                    <p>Released : {item.released}</p>
-                    <p>
-                      Platforms :{' '}
-                      {item.platforms
-                        .map((platformItem, index) => (
-                          <span key={index}>{platformItem.platform.name}</span>
-                        ))
-                        .reduce((prev, curr, index) => [prev, ', ', curr])}
-                    </p>
-                    <p className="view-details" style={{ display: 'none' }}>
-                      View Details
-                    </p>
-                  </Alert>
-                ))}
-              </Card.Body>
+                        <p id="alert-para">
+                          {item.name}{' '}
+                          <Button
+                            className="btn btn-sm"
+                            key={index}
+                            variant={ratingToVariant[Math.ceil(item.rating)]}
+                          >
+                            ★ {item.rating}
+                          </Button>
+                        </p>
+                        <hr />
+                        <p id="alert-para">Released : {item.released}</p>
+                        <p id="alert-para">
+                          Platforms :{' '}
+                          {item.platforms
+                            .map((platformItem, index) => (
+                              <span key={index}>
+                                {platformItem.platform.name}
+                              </span>
+                            ))
+                            .reduce((prev, curr, index) => [prev, ', ', curr])}
+                        </p>
+                        <p className="view-details" style={{ display: 'none' }}>
+                          View Details
+                        </p>
+                      </Alert>
+                    ))}
+                  </Card.Body>
+                </div>
+              </div>
             </Card>
           </Col>
           <Col lg={4}>
-            <Card className="scrollable-div" style={{ height: '500px' }}>
-              <Card.Header>Highest rated game by Electronic Arts</Card.Header>
-              <Card.Body>
-                {easports.map((item, index) => (
-                  <Alert
-                    onClick={() => showDetails(item)}
-                    key={index}
-                    className="alert-hover"
-                    style={{
-                      backgroundImage: `url(${item.background_image})`,
-                      color: 'white',
-                    }}
-                  >
-                    <p>
-                      {item.name}{' '}
-                      <Button
-                        className="btn btn-sm"
+            <Card
+              id="scrollable-div-custom"
+              className="scrollable-div"
+              style={{ height: '500px' }}
+            >
+              <Card.Header id="card-header">
+                Highest rated game by Electronic Arts
+              </Card.Header>
+              <div id="alert-outer-div">
+                <div id="alert-container-div" className="scrollable-div">
+                  <Card.Body>
+                    {easports.map((item, index) => (
+                      <Alert
+                        id="alert"
+                        onClick={() => showDetails(item)}
                         key={index}
-                        variant={ratingToVariant[Math.ceil(item.rating)]}
+                        className="alert-hover"
+                        style={{
+                          backgroundImage: `url(${item.background_image})`,
+                          color: 'white',
+                        }}
                       >
-                        ★ {item.rating}
-                      </Button>
-                    </p>
-                    <hr />
-                    <p>Released : {item.released}</p>
-                    <p>
-                      Platforms :{' '}
-                      {item.platforms
-                        .map((platformItem, index) => (
-                          <span key={index}>{platformItem.platform.name}</span>
-                        ))
-                        .reduce((prev, curr, index) => [prev, ', ', curr])}
-                    </p>
-                    <p className="view-details" style={{ display: 'none' }}>
-                      View Details
-                    </p>
-                  </Alert>
-                ))}
-              </Card.Body>
+                        <p id="alert-para">
+                          {item.name}{' '}
+                          <Button
+                            className="btn btn-sm"
+                            key={index}
+                            variant={ratingToVariant[Math.ceil(item.rating)]}
+                          >
+                            ★ {item.rating}
+                          </Button>
+                        </p>
+                        <hr />
+                        <p id="alert-para">Released : {item.released}</p>
+                        <p id="alert-para">
+                          Platforms :{' '}
+                          {item.platforms
+                            .map((platformItem, index) => (
+                              <span key={index}>
+                                {platformItem.platform.name}
+                              </span>
+                            ))
+                            .reduce((prev, curr, index) => [prev, ', ', curr])}
+                        </p>
+                        <p className="view-details" style={{ display: 'none' }}>
+                          View Details
+                        </p>
+                      </Alert>
+                    ))}
+                  </Card.Body>
+                </div>
+              </div>
             </Card>
           </Col>
           <Col lg={4}>
-            <Card className="scrollable-div" style={{ height: '500px' }}>
-              <Card.Header>Highest rated games from 2001</Card.Header>
-              <Card.Body>
-                {highRated.map((item, index) => (
-                  <Alert
-                    onClick={() => showDetails(item)}
-                    key={index}
-                    className="alert-hover"
-                    style={{
-                      backgroundImage: `url(${item.background_image})`,
-                      color: 'white',
-                    }}
-                  >
-                    <p>
-                      {item.name}{' '}
-                      <Button
-                        className="btn btn-sm"
+            <Card
+              id="scrollable-div-custom"
+              className="scrollable-div"
+              style={{ height: '500px' }}
+            >
+              <Card.Header id="card-header">
+                Highest rated games from 2001
+              </Card.Header>
+              <div id="alert-outer-div">
+                <div id="alert-container-div" className="scrollable-div">
+                  <Card.Body>
+                    {highRated.map((item, index) => (
+                      <Alert
+                        id="alert"
+                        onClick={() => showDetails(item)}
                         key={index}
-                        variant={ratingToVariant[Math.ceil(item.rating)]}
+                        className="alert-hover"
+                        style={{
+                          backgroundImage: `url(${item.background_image})`,
+                          color: 'white',
+                        }}
                       >
-                        ★ {item.rating}
-                      </Button>
-                    </p>
-                    <hr />
-                    <p>Released : {item.released}</p>
-                    <p>
-                      Platforms :{' '}
-                      {item.platforms
-                        .map((platformItem, index) => (
-                          <span key={index}>{platformItem.platform.name}</span>
-                        ))
-                        .reduce((prev, curr, index) => [prev, ', ', curr])}
-                    </p>
-                    <p className="view-details" style={{ display: 'none' }}>
-                      View Details
-                    </p>
-                  </Alert>
-                ))}
-              </Card.Body>
+                        <p id="alert-para">
+                          {item.name}{' '}
+                          <Button
+                            className="btn btn-sm"
+                            key={index}
+                            variant={ratingToVariant[Math.ceil(item.rating)]}
+                          >
+                            ★ {item.rating}
+                          </Button>
+                        </p>
+                        <hr />
+                        <p id="alert-para">Released : {item.released}</p>
+                        <p id="alert-para">
+                          Platforms :{' '}
+                          {item.platforms
+                            .map((platformItem, index) => (
+                              <span key={index}>
+                                {platformItem.platform.name}
+                              </span>
+                            ))
+                            .reduce((prev, curr, index) => [prev, ', ', curr])}
+                        </p>
+                        <p className="view-details" style={{ display: 'none' }}>
+                          View Details
+                        </p>
+                      </Alert>
+                    ))}
+                  </Card.Body>
+                </div>
+              </div>
             </Card>
           </Col>
         </Row>

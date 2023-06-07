@@ -142,11 +142,11 @@
   border-radius: 16px;
   background-image: linear-gradient(
     to left top,
-    #2f0707,
-    #370607,
-    #3f0405,
-    #460203,
-    #4e0000
+    #412929,
+    #4f3131,
+    #5d3939,
+    #6b4141,
+    #7a4949
   );
   color: rgb(210, 210, 210);
   display: block;
@@ -158,21 +158,13 @@
 }
 
 #card-body {
-  border-top: 1px solid rgb(120, 82, 82);
   border-left: 1px solid rgb(0, 0, 0);
   border-bottom: 1px solid rgb(0, 0, 0);
   border-right: 1px solid rgb(0, 0, 0);
   border-radius: 16px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-image: linear-gradient(
-    to left top,
-    #412929,
-    #4f3131,
-    #5d3939,
-    #6b4141,
-    #7a4949
-  );
+  border-top: #00000000;
 }
 
 #card-body-shop {
@@ -209,6 +201,7 @@
     #4e0000
   );
   text-align: center;
+  box-shadow: 0px 4px 12px rgb(0, 0, 0);
 }
 
 #shop-link:link,
