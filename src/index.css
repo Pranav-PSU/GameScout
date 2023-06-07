@@ -7,11 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(
     to left top,
-    #130808,
-    #1a0606,
-    #1f0404,
-    #240202,
-    #280000
+    #210d0d,
+    #230a0a,
+    #260707,
+    #280303,
+    #2a0000
   );
   background-attachment: fixed;
 }
