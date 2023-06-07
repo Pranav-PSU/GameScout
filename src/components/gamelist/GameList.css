@@ -1,7 +1,7 @@
 #card-custom {
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
     /* offset-x | offset-y | blur-radius | color */
-  box-shadow: 2px 4px 8px black;
+  box-shadow: 0px 0px 16px rgb(0, 0, 0);
   border-top: 1px solid rgb(24, 0, 0);
   border-left: 1px solid rgb(24, 0, 0);
   border-bottom: 1px solid rgb(0, 0, 0);
@@ -12,12 +12,14 @@
   width: fit-content;
   margin: auto;
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 #card-custom:hover {
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/cursor */
   cursor: pointer;
   background-color: #682626;
+  box-shadow: 0px 0px 12px rgb(180, 0, 0);
 }
 
 /* https://stackoverflow.com/questions/4502633/how-to-affect-other-elements-when-one-element-is-hovered */
