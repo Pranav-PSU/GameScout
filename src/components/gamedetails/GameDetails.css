@@ -37,3 +37,62 @@
   color: darkslategrey;
   cursor: pointer;
 }
+
+#main-title-row {
+  color: rgb(210, 210, 210);
+  margin: auto;
+}
+
+#main-title-col {
+  margin: auto;
+  width: 200px;
+}
+
+#title-link,
+:link,
+:visited,
+:active {
+  color: rgb(210, 210, 210);
+  display: inline-block;
+  text-decoration: none;
+  width: fit-content;
+  margin: auto;
+}
+
+#title-link:hover > #title-container {
+  background-image: linear-gradient(
+    to left top,
+    #380000,
+    #4a0004,
+    #5c0006,
+    #6f0004,
+    #810000
+  );
+  border: 1px solid #800000;
+}
+
+#title-container {
+  background-image: linear-gradient(
+    to left top,
+    #370000,
+    #3f0001,
+    #460001,
+    #4e0001,
+    #560000
+  );
+  border: 1px solid #640000;
+  border-radius: 16px;
+  box-shadow: 0px 0px 16px rgb(0, 0, 0);
+  margin: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  max-width: fit-content;
+  text-align: center;
+}
+
+#container {
+  margin-top: 0;
+  padding-top: 0;
+}

@@ -59,7 +59,16 @@ const GameDetails = () => {
 
   return (
     <div>
-      <Container>
+      <Container id="container">
+        <Row className="mt-4" id="main-title-row">
+          <Col id="main-title-col">
+            <a id="title-link" target="_blank" href={game.website}>
+              <div id="title-container">
+                <h1>{game.name}</h1>
+              </div>
+            </a>
+          </Col>
+        </Row>
         <Row className="mt-4">
           <Col>
             <Card
