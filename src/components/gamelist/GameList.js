@@ -97,7 +97,7 @@ const GameList = (props) => {
           </Button>
         </Form>
 
-        <div className="gameCardListDiv">
+        <div id="game-card-list-div">
           <DartsSpinnerOverlay
             overlayColor="rgb(255 255 255 / 38%)"
             size={90}
@@ -107,6 +107,7 @@ const GameList = (props) => {
             borderHeight="25"
           />
           <InfiniteScroll
+            id="infinite-scroll"
             dataLength={games.length}
             next={getGameListFunction}
             hasMore={hasMore}
@@ -116,7 +117,7 @@ const GameList = (props) => {
               </p>
             }
           >
-            <Row xs={1} md={2} lg={3} className="g-4">
+            <Row id="row-custom" xs={1} md={2} lg={3} xl={4} className="g-4">
               {games.map((element, id) => (
                 <Col key={id}>
                   <Card

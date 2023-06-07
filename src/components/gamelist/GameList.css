@@ -10,6 +10,8 @@
   background-color: #562a2a;
   display: block;
   width: fit-content;
+  margin: auto;
+  margin-bottom: 2rem;
 }
 
 #card-custom:hover {
@@ -167,11 +169,30 @@
 }
 
 #container-custom {
-  margin-left: 7rem;
+  margin-left: 5rem;
+  margin-right: auto;
+  min-width: fit-content;
 }
 
 #end-marker-para {
   text-align: center;
+}
+
+#game-card-list-div {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#row-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#infinite-scroll {
+  margin: auto;
 }
 
 .container {
