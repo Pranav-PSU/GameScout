@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../sidebar/Sidebar";
 import { Card, Col, Row, Container, Alert, Button } from "react-bootstrap";
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
+import { DartsSpinnerOverlay } from 'react-spinner-overlay';
 
 const apiKey = "3896265182c3481ab09163b92a9cd5bd";
 const gameID = "fifa-22-xbox-one";
@@ -20,10 +20,20 @@ const Dashboard = () => {
   const [mostPopular, setMostPopular] = useState(null);
   const [easports, setEAsports] = useState(null);
   const [highRated, setHighRated] = useState(null);
-  const [genre, setGenre] = useState(null);
-  const [platform, setPlatform] = useState(null);
+  const [genreName, setGenreName] = useState(null);
+  const [genreCount, setGenreCount] = useState(null);
+  const [platformName, setPlatformName] = useState(null);
+  const [platformCount, setPlatformCount] = useState(null);
   // const [game, setGame] = useState(null);
   const navigate = useNavigate();
+  const date = "2010-01-01";
+  const chartRatingdate="2022-01-01,2022-12-31";
+  
+  const [topRatedGameYear, setTopRatedGameYear] = useState(null);
+  const [ratingCount, setRatingCount] = useState(null);
+  const [topRatedGames, setTopRatedGames] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
   let backgroundColors = [
     "rgba(54, 162, 235, 0.8)",
     "rgba(255, 206, 86, 0.8)",
@@ -38,16 +48,35 @@ const Dashboard = () => {
     "rgba(78, 52, 199, 0.8)",
   ];
 
-  const data1 = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  
+  const dataRatingcCart = {
+    labels: topRatedGames,
     datasets: [
       {
-        data: [12, 19, 3, 5, 2, 3],
+        data: ratingCount,
         backgroundColor: backgroundColors,
       },
     ],
   };
-  const options = {
+  const dataPieChart = {
+    labels: genreName,
+    datasets: [
+      {
+        data: genreCount,
+        backgroundColor: backgroundColors,
+      },
+    ],
+  };
+  const dataLineChart = {
+    labels: platformName,
+    datasets: [
+      {
+        data: platformCount,
+        backgroundColor: backgroundColors,
+      },
+    ],
+  };
+  const optionForChart = {
     indexAxis: "y",
     elements: {
       bar: {
@@ -57,25 +86,32 @@ const Dashboard = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "right",
+        display:false,
+        
       },
       title: {
         display: true,
-        text: "Chart.js Horizontal Bar Chart",
+        text: "",
       },
     },
   };
 
   useEffect(() => {
     const fetchGameDetails = async () => {
+      // setLoading(true)
       try {
         const response = await fetch(
           `https://api.rawg.io/api/games?dates=2019-01-01,2019-12-31&ordering=-added&key=${apiKey}`
         );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         setMostPopular(data.results);
       } catch (error) {
-        console.error("Error fetching game details:", error);
+        console.error('Error fetching data from RAWG API:', error);
+      } finally{
+        // setLoading(false)
       }
     };
     const EASportGames = async () => {
@@ -93,7 +129,7 @@ const Dashboard = () => {
     const highestRatedGames = async () => {
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?dates=2001-01-01,2001-12-31&ordering=-rating&key=${apiKey}`
+          `https://api.rawg.io/api/games?dates=&ordering=-rating&key=${apiKey}`
         );
         const data = await response.json();
         setHighRated(data.results);
@@ -101,7 +137,7 @@ const Dashboard = () => {
         console.error("Error fetching game details:", error);
       }
     };
-    const genresGet = async () => {
+    const getGenresDataForChart = async () => {
       let genre = [];
       try {
         const response = await fetch(
@@ -114,14 +150,25 @@ const Dashboard = () => {
           genre.push({ name: genreItem.name, count: genreItem.games_count });
         }
 
-        setGenre(genre);
-        console.log(genre);
+          genre.sort((a, b) => b.count - a.count);
+
+          let top10 = genre.slice(0, 10);
+          let others = genre.slice(10);
+
+          let othersCount = others.reduce((sum, item) => sum + item.count, 0);
+
+          top10.push({name: 'Others', count: othersCount});
+        
+          let genreNames = top10.map(element => element.name)
+          let genreCounts = top10.map(element => element.count)
+        setGenreName(genreNames);
+        setGenreCount(genreCounts);
       } catch (error) {
         console.error("Error fetching game details:", error);
       }
     };
 
-    const platformsGet = async () => {
+    const getPlatformDataForchart = async () => {
       let platformArr = [];
       try {
         const response = await fetch(
@@ -137,32 +184,117 @@ const Dashboard = () => {
           });
         }
 
-        setPlatform(platformArr);
+
+          platformArr.sort((a, b) => b.count - a.count);
+
+          let top10 = platformArr.slice(0, 10);
+          let others = platformArr.slice(10);
+
+          let othersCount = others.reduce((sum, item) => sum + item.count, 0);
+
+          top10.push({name: 'Others', count: othersCount});
+
+        let platformName = top10.map(element=>element.name)
+        let platformCount = top10.map(element=>element.count)
+
+
+
+        setPlatformName(platformName);
+        setPlatformCount(platformCount);
       } catch (error) {
         console.error("Error fetching game details:", error);
       }
     };
 
-    genresGet();
-    platformsGet();
+    getGenresDataForChart();
+    getPlatformDataForchart();
     highestRatedGames();
     fetchGameDetails();
     EASportGames();
+    fetRatingDataForchart();
   }, []);
+
+  const fetRatingDataForchart = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://api.rawg.io/api/games?key=${apiKey}&dates=${chartRatingdate}&ordering=-added&page_size=10`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const ratingCountData = data.results.map(element => ({
+      ratingCountDataNames: element.ratings_count,
+      topRatedGameNames: element.name
+    }));
+    let sortedData = ratingCountData.sort((a, b) => b.ratingCountData - a.ratingCountData);
+    let sortedGameNames = sortedData.map(game => game.topRatedGameNames);
+    let sortedRatingCounts = sortedData.map(game => game.ratingCountDataNames);
+    setRatingCount(sortedRatingCounts);
+    setTopRatedGames(sortedGameNames);
+    } catch (error) {
+      console.error('Error fetching data from RAWG API:', error);
+    } finally{
+      setLoading(false);
+    }
+  };
   const showDetails = (element, id) => {
     navigate("/gamedetails", { state: { gameData: element } });
   };
   if (mostPopular === null) {
     return <p>Loading...</p>;
   }
-  // You may use different data for other charts
 
   return (
+    
     <div>
-      <Sidebar />
+       {/* <DartsSpinnerOverlay
+            overlayColor="rgb(255 255 255 / 38%)"
+            size={90}
+            loading={loading}
+            color="white"
+            borderWidth="8"
+            borderHeight="25"
+          /> */}
       <Container>
         <Row>
           <h4 style={{ color: "white" }}>Welcome to Game Scout App</h4>
+        </Row>
+        <Row>
+          <Col md={6} lg={6}>
+            <Card className="chartCard">
+              <Card.Body>
+                {
+                  optionForChart.text="Top Rated Games in Year"
+                }
+                <Bar options={optionForChart} data={dataRatingcCart} style={{height: "300px"}} />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={6}>
+            <Card className="chartCard">
+              <Card.Body>
+                {
+                  optionForChart.text="Number of Games Present Per Genre"
+                }
+                <Pie options={optionForChart} data={dataPieChart} style={{height: "300px"}} />
+              </Card.Body>
+            </Card>
+          </Col>
+          </Row>
+          <Row>
+          <Col md={12} height={300}>
+            <Card className="chartCard">
+              <Card.Body>
+                {
+                  optionForChart.text="Number of games per platform"
+                }
+                <Doughnut  data={dataLineChart} style={{height: "300px"}} />
+              </Card.Body>
+            </Card>
+          </Col>
+
         </Row>
         <Row>
           <Col lg={4}>
