@@ -124,15 +124,18 @@ const GameList = (props) => {
                     onClick={() => showDetails(element, id)}
                     id="card-custom"
                   >
+                    <Card.Header id="card-header">
+                      <div id="header-div">{element.name}</div>
+                    </Card.Header>
                     <Card.Img
                       variant="top"
                       className="imageCustomSize"
                       src={element.background_image}
                       id="img-custom"
                     />
-                    <Card.Body id="card-body-custom">
+                    {/* <Card.Body id="card-body-custom">
                       <Card.Title id="caption">{element.name}</Card.Title>
-                    </Card.Body>
+                    </Card.Body> */}
                   </Card>
                 </Col>
               ))}
