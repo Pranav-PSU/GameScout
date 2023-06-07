@@ -72,16 +72,15 @@ const GameDetails = () => {
         <Row className="mt-4">
           <Col>
             <Card
+              id="carousel-container-card"
               className="image-card"
               style={{
-                height: '500px',
                 position: 'relative',
-                border: 0,
               }}
             >
               <Carousel
                 id="carousel-custom"
-                indicators={false}
+                indicators={true}
                 controls={true}
                 interval={5000}
                 pause={false}
