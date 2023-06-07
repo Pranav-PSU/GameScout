@@ -72,6 +72,7 @@
     #460203,
     #4e0000
   );
+  max-width: 320px;
 }
 
 #img-custom {
@@ -100,7 +101,6 @@
   margin: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  
 }
 
 #caption {
@@ -130,6 +130,7 @@
   min-width: 6rem;
   color: rgb(210, 210, 210);
   border: 1px solid rgb(155, 60, 60);
+  border-left: 0;
 }
 
 #search-button:hover {
@@ -166,11 +167,10 @@
 }
 
 #container-custom {
-  margin-left: 8rem;
+  margin-left: 7rem;
 }
 
 .container {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
-
