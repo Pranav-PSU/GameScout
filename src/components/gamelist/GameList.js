@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Col,
@@ -7,15 +7,15 @@ import {
   Form,
   FormControl,
   Button,
-} from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import './GameList.css';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { DartsSpinnerOverlay } from 'react-spinner-overlay';
+} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import "./GameList.css";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { DartsSpinnerOverlay } from "react-spinner-overlay";
 
 const GameList = (props) => {
   const [games, setGames] = useState([]);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const GameList = (props) => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleSearchFunctionality(event);
     }
   };
@@ -40,10 +40,10 @@ const GameList = (props) => {
 
   const getGameListFunction = async () => {
     setLoading(true);
-    let REACT_APP_RAWG = '3896265182c3481ab09163b92a9cd5bd';
+    let REACT_APP_RAWG = "3896265182c3481ab09163b92a9cd5bd";
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${REACT_APP_RAWG}&page=${currentPage}&search=${searchText}&page_size=15`,
+        `https://api.rawg.io/api/games?key=${REACT_APP_RAWG}&page=${currentPage}&search=${searchText}&page_size=15`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -56,7 +56,7 @@ const GameList = (props) => {
         setCurrentPage((prevPage) => prevPage + 1);
       }
     } catch (error) {
-      console.error('Error fetching data from RAWG API:', error);
+      console.error("Error fetching data from RAWG API:", error);
     } finally {
       setLoading(false);
     }
@@ -70,7 +70,7 @@ const GameList = (props) => {
 
   const showDetails = (element, id) => {
     console.log(element);
-    navigate('/gamedetails', { state: { gameData: element } });
+    navigate("/gamedetails", { state: { gameData: element } });
   };
 
   return (
@@ -133,9 +133,6 @@ const GameList = (props) => {
                       src={element.background_image}
                       id="img-custom"
                     />
-                    {/* <Card.Body id="card-body-custom">
-                      <Card.Title id="caption">{element.name}</Card.Title>
-                    </Card.Body> */}
                   </Card>
                 </Col>
               ))}

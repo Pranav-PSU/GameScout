@@ -1,52 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Badge,
-  Button,
-  Card,
-  Carousel,
-} from 'react-bootstrap';
-import Sidebar from '../sidebar/Sidebar.js';
-import './GameDetails.css';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Badge, Card, Carousel } from "react-bootstrap";
+import "./GameDetails.css";
+import { useLocation } from "react-router-dom";
 
-const apiKey = '3896265182c3481ab09163b92a9cd5bd';
-// const gameID = "vampire-the-masquerade-bloodlines-2";
-let gameID = 'fifa-22-xbox-one';
+const apiKey = "3896265182c3481ab09163b92a9cd5bd";
+let gameID = "fifa-22-xbox-one";
 const GameDetails = () => {
   const [game, setGame] = useState(null);
   const [gameScreenshots, setGameScreenshots] = useState(null);
   const location = useLocation();
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  let textToShow = '...';
 
   useEffect(() => {
     gameID = location.state.gameData.slug;
     const getGameScreenshots = async () => {
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games/${gameID}/screenshots?key=${apiKey}`,
+          `https://api.rawg.io/api/games/${gameID}/screenshots?key=${apiKey}`
         );
         const data = await response.json();
-        console.log('gameScreenshts', data);
+        console.log("gameScreenshts", data);
         setGameScreenshots(data);
       } catch (error) {
-        console.error('Error fetching game screenshots:', error);
+        console.error("Error fetching game screenshots:", error);
       }
     };
     const fetchGameDetails = async () => {
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games/${gameID}?key=${apiKey}`,
+          `https://api.rawg.io/api/games/${gameID}?key=${apiKey}`
         );
         const data = await response.json();
         console.log(data);
         setGame(data);
       } catch (error) {
-        console.error('Error fetching game details:', error);
+        console.error("Error fetching game details:", error);
       }
     };
 
@@ -77,25 +64,7 @@ const GameDetails = () => {
               style={{
                 backgroundImage: `url(${game.background_image})`,
               }}
-            >
-              {/* <Card.Body>
-                <Row>
-                  <Col>
-                    <Card.Text className="text-white">
-                      {isExpanded
-                        ? game.description_raw
-                        : game.description_raw.slice(0, 300) + '...'}
-                      <Button
-                        variant="link"
-                        onClick={() => setIsExpanded(!isExpanded)}
-                      >
-                        {isExpanded ? 'Read less' : 'Read more'}
-                      </Button>
-                    </Card.Text>
-                  </Col>
-                </Row>
-              </Card.Body> */}
-            </Card>
+            ></Card>
           </Col>
           <Col>
             <Card id="carousel-container-card" className="image-card">
@@ -166,46 +135,46 @@ const GameDetails = () => {
                   <Col>
                     <Card.Text
                       style={{
-                        textAlign: 'left',
+                        textAlign: "left",
                       }}
                     >
-                      <strong>Platforms:</strong>{' '}
+                      <strong>Platforms:</strong>{" "}
                       {game.platforms
                         .map((platformItem, index) => (
                           <span key={index} class="game-details">
                             {platformItem.platform.name}
                           </span>
                         ))
-                        .reduce((prev, curr, index) => [prev, ', ', curr])}
+                        .reduce((prev, curr, index) => [prev, ", ", curr])}
                       <br />
-                      <strong>Genre:</strong>{' '}
-                      {game.genres.map((genre) => genre.name).join(', ')} <br />
+                      <strong>Genre:</strong>{" "}
+                      {game.genres.map((genre) => genre.name).join(", ")} <br />
                       <strong>Release date:</strong> {game.released} <br />
-                      <strong>Developers:</strong>{' '}
+                      <strong>Developers:</strong>{" "}
                       {game.developers
                         .map((developer) => developer.name)
-                        .join(', ')}{' '}
+                        .join(", ")}{" "}
                       <br />
-                      <strong>Publishers:</strong>{' '}
+                      <strong>Publishers:</strong>{" "}
                       {game.publishers
                         .map((publisher) => publisher.name)
-                        .join(', ')}{' '}
+                        .join(", ")}{" "}
                       <br />
                     </Card.Text>
                   </Col>
                   <Col>
                     <Card.Text
                       style={{
-                        textAlign: 'left',
+                        textAlign: "left",
                       }}
                     >
                       <strong>Age rating:</strong>
                       <span class="game-details">Not rated</span> <br />
-                      <strong>Tags:</strong>{' '}
+                      <strong>Tags:</strong>{" "}
                       {game.tags
                         .slice(0, 10)
                         .map((tag) => tag.name)
-                        .join(', ')}
+                        .join(", ")}
                     </Card.Text>
                   </Col>
                 </Row>
@@ -217,20 +186,20 @@ const GameDetails = () => {
           <Col>
             <Card id="card">
               <Card.Header id="card-header">
-                System Requirements ( PC ){' '}
+                System Requirements ( PC ){" "}
               </Card.Header>
               <Card.Body id="card-body">
                 <Card.Text>
                   {game.platforms.map((platformItem, index) => {
-                    if (platformItem.platform.name === 'PC') {
+                    if (platformItem.platform.name === "PC") {
                       return (
                         <div key={index}>
                           <p>
-                            <strong>Minimum Requirements:</strong>{' '}
+                            <strong>Minimum Requirements:</strong>{" "}
                             {platformItem.requirements.minimum}
                           </p>
                           <p>
-                            <strong>Recommended Requirements:</strong>{' '}
+                            <strong>Recommended Requirements:</strong>{" "}
                             {platformItem.requirements.recommended}
                           </p>
                         </div>
@@ -256,7 +225,7 @@ const GameDetails = () => {
                         <a
                           id="shop-link"
                           target="_blank"
-                          href={'https://' + storeItem.store.domain}
+                          href={"https://" + storeItem.store.domain}
                         >
                           {storeItem.store.name}
                         </a>
