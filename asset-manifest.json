@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Pranav-PSU/GameScout/static/css/main.6efe1a48.css",
+    "main.js": "/Pranav-PSU/GameScout/static/js/main.85b9e3ae.js",
+    "static/js/787.e05a3f37.chunk.js": "/Pranav-PSU/GameScout/static/js/787.e05a3f37.chunk.js",
+    "index.html": "/Pranav-PSU/GameScout/index.html",
+    "main.6efe1a48.css.map": "/Pranav-PSU/GameScout/static/css/main.6efe1a48.css.map",
+    "main.85b9e3ae.js.map": "/Pranav-PSU/GameScout/static/js/main.85b9e3ae.js.map",
+    "787.e05a3f37.chunk.js.map": "/Pranav-PSU/GameScout/static/js/787.e05a3f37.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6efe1a48.css",
+    "static/js/main.85b9e3ae.js"
+  ]
+}
