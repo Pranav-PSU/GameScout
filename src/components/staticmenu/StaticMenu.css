@@ -1,38 +1,115 @@
 .top-card {
-    background-color: #f0f0f0;
-    padding: 20px;
-    margin-bottom: 20px;
-    position: fixed;
-    top: 50%;
-    z-index: 9;
-    left: 0;
-  }
+  background-image: linear-gradient(
+    to left top,
+    #420a0a,
+    #4b0809,
+    #540606,
+    #5d0304,
+    #660000
+  );
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: 4px 4px 8px rgb(0, 0, 0);
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 40%;
+  z-index: 9;
+  left: 0;
+}
 
-  .cardContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .nav-links {
+.nav-links {
   display: flex;
   flex-direction: column;
 }
 
 @media (max-width: 768px) {
-    .top-card {
-      display: none;
-    }
-    .top-card-mobile {
-      display: block;
-    }
+  .top-card {
+    display: none;
   }
+  .top-card-mobile {
+    display: block;
+  }
+}
 
-  @media (min-width: 768px) {
-    .top-card {
-      display: block;
-    }
-    .top-card-mobile {
-      display: none;
-    }
+@media (min-width: 768px) {
+  .top-card {
+    display: block;
   }
+  .top-card-mobile {
+    display: none;
+  }
+}
+
+#nav-link-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#nav-link-explore {
+  border: 1px solid rgba(255, 99, 99, 0);
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  display: block;
+  padding: 0.4rem;
+  margin: 0rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#nav-link-dashboard {
+  border: 1px solid rgba(159, 62, 62, 0);
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: block;
+  padding: 0.4rem;
+  margin: 0rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#nav-link-explore:hover {
+  background-image: linear-gradient(
+    to left top,
+    #560707,
+    #610506,
+    #6b0405,
+    #760203,
+    #810000
+  );
+  border: 1px solid rgb(159, 62, 62);
+}
+
+#nav-link-dashboard:hover {
+  background-image: linear-gradient(
+    to left top,
+    #560707,
+    #610506,
+    #6b0405,
+    #760203,
+    #810000
+  );
+  border: 1px solid rgb(159, 62, 62);
+}
+
+#nav-link-text {
+  display: block;
+  margin: 0;
+  text-align: center;
+  color: rgb(210, 210, 210);
+  margin-top: 0.5rem;
+}
