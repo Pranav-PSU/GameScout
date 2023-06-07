@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
-import './StaticMenu.css';
-import dashboardIcon from './dashboard.png';
-import compassIcon from './compass.png';
-import { Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Link } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import "./StaticMenu.css";
+import dashboardIcon from "./dashboard.png";
+import compassIcon from "./compass.png";
+import { Row, Col } from "react-bootstrap";
 
 function StaticMenu() {
   return (

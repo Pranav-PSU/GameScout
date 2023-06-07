@@ -32,10 +32,10 @@
 
 @media (max-width: 768px) {
   .top-card {
-    display: none;
+    display: block;
   }
   .top-card-mobile {
-    display: block;
+    display: none;
   }
 }
 
