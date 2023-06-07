@@ -131,6 +131,7 @@
   height: 500px;
   border-radius: 16px;
   border: 2px solid rgb(143, 36, 36);
+  box-shadow: 2px 4px 8px rgb(0, 0, 0);
 }
 
 #card {
