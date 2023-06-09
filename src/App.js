@@ -9,14 +9,14 @@ function App() {
   return (
     <>
       <Router>
-      <StaticMenu />
+        <StaticMenu />
         <div className="App">
           <Routes>
-            <Route path="/"  exact element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard/>} />
-            <Route path="/gamelist" element={<GameList/>} />
-            <Route path="/gamedetails" element={<GameDetails/>} />
-            <Route path="/logout" element={<Login/>} />
+            <Route path="/" exact element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/gamelist" element={<GameList />} />
+            <Route path="/gamedetails" element={<GameDetails />} />
+            <Route path="/logout" element={<Login />} />
           </Routes>
         </div>
       </Router>
