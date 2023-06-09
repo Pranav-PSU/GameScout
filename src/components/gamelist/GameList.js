@@ -133,9 +133,6 @@ const GameList = (props) => {
                       src={element.background_image}
                       id="img-custom"
                     />
-                    {/* <Card.Body id="card-body-custom">
-                      <Card.Title id="caption">{element.name}</Card.Title>
-                    </Card.Body> */}
                   </Card>
                 </Col>
               ))}

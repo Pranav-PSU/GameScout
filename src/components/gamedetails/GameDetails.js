@@ -70,34 +70,16 @@ const GameDetails = () => {
           </Col>
         </Row>
         <Row className="mt-4">
-          <Col>
+          <Col lg={12} md={12} sm={12} xl={6}>
             <Card
               id="game-overview-card"
               className="image-card"
               style={{
                 backgroundImage: `url(${game.background_image})`,
               }}
-            >
-              {/* <Card.Body>
-                <Row>
-                  <Col>
-                    <Card.Text className="text-white">
-                      {isExpanded
-                        ? game.description_raw
-                        : game.description_raw.slice(0, 300) + '...'}
-                      <Button
-                        variant="link"
-                        onClick={() => setIsExpanded(!isExpanded)}
-                      >
-                        {isExpanded ? 'Read less' : 'Read more'}
-                      </Button>
-                    </Card.Text>
-                  </Col>
-                </Row>
-              </Card.Body> */}
-            </Card>
+            ></Card>
           </Col>
-          <Col>
+          <Col lg={12} md={12} sm={12} xl={6}>
             <Card id="carousel-container-card" className="image-card">
               <Carousel
                 id="carousel-custom"

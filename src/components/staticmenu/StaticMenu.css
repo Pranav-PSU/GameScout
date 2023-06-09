@@ -19,6 +19,29 @@
   left: 0;
 }
 
+.top-card-mobile {
+  background-image: linear-gradient(
+    to left top,
+    #2b0000,
+    #350202,
+    #400103,
+    #4b0102,
+    #560000
+  );
+  border-radius: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 4px 4px 8px rgb(0, 0, 0);
+  padding: 0;
+  margin: auto;
+  /* position: fixed; */
+  top: 0%;
+  z-index: 9;
+  left: 0;
+  width: fit-content;
+}
+
 .cardContainer {
   display: flex;
   justify-content: center;
@@ -28,15 +51,6 @@
 .nav-links {
   display: flex;
   flex-direction: column;
-}
-
-@media (max-width: 768px) {
-  .top-card {
-    display: none;
-  }
-  .top-card-mobile {
-    display: block;
-  }
 }
 
 @media (min-width: 768px) {
@@ -113,4 +127,80 @@
   text-align: center;
   color: rgb(210, 210, 210);
   margin-top: 0.5rem;
+}
+
+#top-bar-container {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .top-card {
+    display: none;
+  }
+  .top-card-mobile {
+    /* display: block;
+    
+    left: 50%;
+    transform: translateX(-50%); */
+    width: fit-content;
+    margin: auto;
+  }
+  #nav-link-icon {
+    display: inline;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+  #nav-link-explore {
+    display: flex;
+    border: 1px solid rgba(255, 99, 99, 0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 12px;
+    padding: 0.5rem;
+    margin: 0;
+    width: 100%;
+  }
+  #nav-link-dashboard {
+    display: flex;
+    border: 1px solid rgba(255, 99, 99, 0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0px;
+    padding: 0.5rem;
+    margin: 0;
+    width: 100%;
+  }
+  #nav-link-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    min-width: 4rem;
+  }
+  #nav-col-dashboard {
+    flex: 1;
+    box-sizing: border-box;
+    padding-right: 0;
+  }
+  #nav-col-explore {
+    flex: 1;
+    box-sizing: border-box;
+    padding-left: 0;
+  }
+  #nav-row {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 510px) {
 }

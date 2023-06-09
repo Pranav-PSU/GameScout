@@ -327,14 +327,6 @@ const Dashboard = () => {
 
   return (
     <div>
-      {/* <DartsSpinnerOverlay
-            overlayColor="rgb(255 255 255 / 38%)"
-            size={90}
-            loading={loading}
-            color="white"
-            borderWidth="8"
-            borderHeight="25"
-          /> */}
       <Container id="main-container">
         <Row>
           <div id="title-container-dashboard">

@@ -31,21 +31,25 @@ function StaticMenu() {
           </Row>
         </Nav>
       </div>
-      <div className="top-card-mobile">
-        <Nav className="me-auto">
-          <Row className="nav-links d-sm-flex flex-sm-row flex-md-column">
-            <Col className="">
-              <Nav.Link as={Link} to="/dashboard">
-                Dashboard
-              </Nav.Link>
-            </Col>
-            <Col className="">
-              <Nav.Link as={Link} to="/gamelist">
-                Explore
-              </Nav.Link>
-            </Col>
-          </Row>
-        </Nav>
+      <div id="top-bar-container">
+        <div className="top-card-mobile">
+          <Nav className="me-auto">
+            <Row className="nav-links" id="nav-row">
+              <Col className="" id="nav-col-dashboard">
+                <Nav.Link as={Link} to="/dashboard" id="nav-link-dashboard">
+                  <img src={dashboardIcon} id="nav-link-icon"></img>
+                  <p id="nav-link-text">Dashboard</p>
+                </Nav.Link>
+              </Col>
+              <Col className="" id="nav-col-explore">
+                <Nav.Link as={Link} to="/gamelist" id="nav-link-explore">
+                  <img src={compassIcon} id="nav-link-icon"></img>
+                  <p id="nav-link-text">Explore</p>
+                </Nav.Link>
+              </Col>
+            </Row>
+          </Nav>
+        </div>
       </div>
     </>
   );
