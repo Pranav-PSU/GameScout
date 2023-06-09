@@ -57,7 +57,7 @@ const GameDetails = () => {
           </Col>
         </Row>
         <Row className="mt-4">
-          <Col>
+          <Col lg={12} md={12} sm={12} xl={6}>
             <Card
               id="game-overview-card"
               className="image-card"
@@ -66,7 +66,7 @@ const GameDetails = () => {
               }}
             ></Card>
           </Col>
-          <Col>
+          <Col lg={12} md={12} sm={12} xl={6}>
             <Card id="carousel-container-card" className="image-card">
               <Carousel
                 id="carousel-custom"

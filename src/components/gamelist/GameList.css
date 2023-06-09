@@ -197,3 +197,12 @@
 #header-div {
   max-width: 280px;
 }
+
+@media (max-width: 768px) {
+  #search-bar {
+    margin-top: 2rem;
+  }
+  #container-custom {
+    margin: auto;
+  }
+}
